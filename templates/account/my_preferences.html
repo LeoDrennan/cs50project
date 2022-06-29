@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Preferences
+{% endblock %}
+
+{% block main %}
+    <h3 class="centered"><b>Food preferences</b></h3>
+    <hr>
+    <div class="row" style="width: 80%; margin: auto">
+        <div class="col-md-6">
+            <h5><b>Order Settings</b></h5>
+            <p>You are currently ordering {{ preferences.meals}} meals for {{ preferences.people }} people.</p>
+            <h5><b>Dietary information</b></h5>
+            <p>Your dietary preferences: {{ diet }}</p>
+            <h5><b>Allergy Information</b></h5>
+            {% if allergens %}
+                Your recorded allergies:
+                <ul>
+                {% for allergen in allergens %}
+                    <li>{{ allergen.allergen | capitalize }}</li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>You have no allergies recorded.</p>
+            {% endif %}
+        </div>
+        <div class="col-md-6 centered">
+            <div class="round-border">
+                <p>Want to make a change? Click here to change your preferences.</p>
+                <a href="quote_change"><button class="btn btn-primary">Change</button></a>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+
+{% block script %}
+    <script src="{{url_for('static', filename='basket.js')}}"></script>
+{% endblock %}
+
+{% block title %}
+    Basket
+{% endblock %}
+
+{% block main %}
+    <h3 class="centered">Shopping Basket</h3>
+    {% if contents %}
+        <br>
+    {% else %}
+        <hr>
+    {% endif %}
+    <div class="row">
+        {% if contents %}
+            <div class="col-md-9">
+                <table class="container table table-hover">
+                    <tbody>
+                        {% for content in contents %}
+                            <tr>
+                                <td><img src="{{ content.image }}" class="shopping-basket-image"></td>
+                                <td>
+                                    <b>{{ content.name }}</b>
+                                    <br style="margin-bottom: 15px">
+                                    {{ content.price | gbp }}
+                                    <br style="margin-bottom: 25px">
+                                    <span style="margin-right: 5px">Quantity:</span>
+                                    <select name="quantity" id="{{ content.id }}" class="quantitySelect" type="number">{{ content.quantity}}
+                                        {% for n in range(1, content.stock + 1) %}
+                                            {% if  n  == content.quantity %}
+                                                <option value="{{ n }}" selected="selected">{{ n }}</option>
+                                            {% else %}
+                                                <option value="{{ n }}">{{ n }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                                <td>
+                                    <form action="/basket" method="post" onsubmit="return confirm('Really remove this item from your basket?');">
+                                        <input name="id" type="hidden" value="{{ content.id }}">
+                                        <button class="btn btn-primary btn-sm" type="submit">Remove</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="col-md-9 round-border centered" id="empty-basket">
+                <p>Your basket is currently empty.</p>
+                <a href="/shop"><button class="btn btn-primary">Shop</button></a>
+            </div>
+        {% endif %}
+        <div class="col-md-3">
+            <div class="round-border centered" id="basket-checkout">
+                <div>Total cost:</div>
+                <div id="output">
+                    {{ total_cost | gbp }}
+                </div>
+                <div>
+                    {% if contents %}
+                        <a href="/checkout"><button class="btn btn-primary" type="button">Checkout</button></a>
+                    {% else %}
+                        <button class="btn btn-primary" type="button" disabled>Checkout</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

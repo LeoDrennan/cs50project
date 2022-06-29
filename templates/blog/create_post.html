@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Create Post
+{% endblock %}
+
+{% block main %}
+    {% if verified == "False" %}
+        <p>You must verify your email address to post on the blog.</p>
+        <p>Please check your email address for a verification email or click below to send a new email.</p>
+        <a href="/verify_request"><button class="btn btn-primary">Click here</button></a>
+    {% else %}
+        <div class="round-border create-box" style="width: 60% !important">
+            <h3 class="centered">Create Post</h3>
+            <hr>
+            <form action="/blog/create_post" method="post">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Please enter a Title">
+                </div>
+                <div class="form-group">
+                    <label for="content">Post Body</label>
+                    <textarea class="form-control" id="content" name="content" rows="3" placeholder="Post content"></textarea>
+                </div>
+                <div class="form-group centered" style="margin-bottom: 0 !important">
+                    <button type="submit" class="btn btn-primary">Create Post</button>
+                </div>
+            </form>
+        </div>
+    {% endif %}
+{% endblock %}

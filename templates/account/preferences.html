@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block script %}
+{% endblock %}
+
+{% block title %}
+    Preferences
+{% endblock %}
+
+{% block main %}
+    <h3 class="centered">Food Preferences</h3>
+    <hr>
+    <div style="width: 70%; margin: auto;">
+        <form action="/preferences_change" method="post">
+            <!-- Check if user is vegetarian or vegan -->
+            <h5><b>Dietary Choices</b></h5>
+            <p>Please select any special dietary requirements:</p>
+            <div class="centered mb-2">
+                <div class="form-check form-check-inline mr-5">
+                    <input class="form-check-input" type="radio" name="dietary" id="vegetarian" value="vegetarian" required>
+                    <label class="form-check-label" for="vegetarian">Vegetarian</label>
+                </div>
+                <div class="form-check form-check-inline mr-5">
+                    <input class="form-check-input" type="radio" name="dietary" id="vegan" value="vegan" required>
+                    <label class="form-check-label" for="vegan">Vegan</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="dietary" id="none" value="none" required>
+                    <label class="form-check-label" for="none">None</label>
+                </div>
+            </div>
+            <!-- Document any allergies the user may have -->
+            <h5><b>Allergies</b></h5>
+            <p>Please select the allergens to exclude from your menu:</p>
+            <div class="mb-4" style="width: 80%; margin-left: 120px">
+                {% set ns = namespace(allergy=0) %}
+                {% for i in range(0, allergens | length, 3) %}
+                    <div class="row mb-1">
+                        {% for j in range(ns.allergy, ns.allergy + 3) %}
+                            <div class="form-check col-md-4" style="padding-left: 40px;">
+                                <input class="form-check-input" type="checkbox" name="{{ allergens[j].allergen }}" id="{{ allergens[j].allergen }}">
+                                <label class="form-check-label" for="{{ allergens[j].allergen }}">{{ allergens[j].allergen | capitalize }}</label>
+                            </div>
+                            {% set ns.allergy = ns.allergy + 1 %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- Submit -->
+            <div class="centered">
+                <button class="btn btn-primary" type="submit">Update Preferences</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

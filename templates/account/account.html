@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Account
+{% endblock %}
+
+{% block main %}
+    <!-- Page title -->
+    <h3 class="centered">Account Dashboard</h3>
+    <hr>
+    <!-- Account services links -->
+    <h5 class="centered" style="margin-bottom: 1rem">Account Details</h5>
+    <div class="card-deck" style="justify-content: center">
+        <div class="col-md-4 mb-4">
+            <div class="card centered accountCard">
+                <i class="fa fa-envelope fa-4x" aria-hidden="true"></i>
+                <div class="card-body">
+                    <h5 class="card-title">Email Change</h5>
+                    <a class="stretched-link" href="/email_change"></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card centered accountCard">
+                <i class="fa fa-key fa-4x" aria-hidden="true"></i>
+                <div class="card-body">
+                    <h5 class="card-title">Password Change</h5>
+                    <a class="stretched-link" href="/password_change"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <!-- Food delivery links -->
+    <h5 class="centered" style="margin-bottom: 1rem">Menu Options</h5>
+    <div class="card-deck" style="justify-content: center">
+        <div class="col-md-4 mb-4">
+            <div class="card centered accountCard">
+                <i class="fa fa-cutlery fa-4x" aria-hidden="true"></i>
+                <div class="card-body">
+                    <h5 class="card-title">Food Preferences</h5>
+                    <a class="stretched-link" href="/my_preferences"></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card centered accountCard">
+                <i class="fa fa-cutlery fa-4x" aria-hidden="true"></i>
+                <div class="card-body">
+                    <h5 class="card-title">My Recipes</h5>
+                    <a class="stretched-link" href="/my_recipes"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <!-- History links -->
+    <h5 class="centered" style="margin-bottom: 1rem">Account History</h5>
+    <div class="card-deck">
+        <div class="col-md-4 mb-4">
+            <div class="card centered accountCard">
+                <i class="fa fa-shopping-cart fa-4x" aria-hidden="true"></i>
+                <div class="card-body">
+                    <h5 class="card-title">My Orders</h5>
+                    <a class="stretched-link" href="/order_history"></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card centered accountCard">
+                <i class="fa fa-star-half-o fa-4x" aria-hidden="true" style="color: black !important"></i>
+                <div class="card-body">
+                    <h5 class="card-title">My Reviews</h5>
+                    <a class="stretched-link" href="/review_history"></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card centered accountCard">
+                <i class="fa fa-comments-o fa-4x" aria-hidden="true"></i>
+                <div class="card-body">
+                    <h5 class="card-title">Blog History</h5>
+                    <a class="stretched-link" href="/account/blog_history"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+{% endblock %}

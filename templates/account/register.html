@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    <div class="register-box round-border">
+        <h3 class="centered">Register</h3>
+        <hr>
+        {% if destination and optional %}
+        <form action="/register/{{ destination }}/{{ optional }}" method="post">
+        {% elif destination %}
+        <form action="/register/{{ destination }}" method="post">
+        {% else %}
+        <form action="/register" method="post">
+        {% endif %}
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input autocomplete="off" autofocus class="form-control" name="email" placeholder="example@gmail.com" type="email" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="first_name">First Name</label>
+                    <input autocomplete="off" autofocus class="form-control" name="first_name" placeholder="First Name" type="text" required>
+                </div>
+                <div class ="form-group col-md-6">
+                    <label for="last_name">Last Name</label>
+                    <input autocomplete="off" autofocus class="form-control" name="last_name" placeholder="Last Name" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input autofocus class="form-control" name="password" placeholder="Password" type="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm">Password Confirmation</label>
+                <input autofocus class="form-control" name="confirm" placeholder="Retype Password" type="password" required>
+            </div>
+            <div style="width: 70%; margin: auto;">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Register</button>
+            </div>
+        </form>
+        <hr>
+        <div class="centered">
+            <h5>Already have an account?<h5>
+            {% if destination and optional %}
+                <a href="/login/{{ destination }}/{{ optional }}" class="btn btn-primary btn-sm" role="button">Log in</a>
+            {% elif destination %}
+                <a href="/login/{{ destination }}" class="btn btn-primary btn-sm" role="button">Log in</a>
+            {% else %}
+                <a href="/login" class="btn btn-primary btn-sm" role="button">Log in</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+
+{% block script %}
+    <script type="text/javascript"> window.totalMeals = "{{ preferences.meals }}"</script>
+    <script src="{{url_for('static', filename='menu.js')}}"></script>
+{% endblock %}
+
+{% block title %}
+    Menu
+{% endblock %}
+
+{% block main %}
+    <h3 class="centered">Your Menu</h3>
+    <hr>
+    <!-- Preferences and submit button -->
+    <div class="row" style="width: 50%; margin: auto;">
+        <div class="col-md-8 centered">
+            <p>You are selecting {{ preferences.meals }} meals for {{ preferences.people }} people.</p>
+            <p>Click <a href="/my_preferences">here</a> if you would like to review your preferences settings.</p>
+        </div>
+        <div class="col-md-4 centered">
+            <div class="round-border">
+                <div>Meals selected:</div>
+                <h3 id="selected">0/{{ preferences.meals }}</h3>
+                <form action="/menu" method="post">
+                    <button class="btn btn-primary" id="mealSubmit" type="submit" disabled>Confirm</button>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <!-- List of meals -->
+    <h4 class="centered" style="margin-bottom: 16px">Choose your meals</h4>
+    <div id="menuCarousel" class="carousel slide" data-interval="false">
+        <div class="carousel-inner">
+            {% set ns = namespace(cards=0) %}
+            <div class="carousel-item active">
+                <div class="card-deck">
+                    {% for i in range(ns.cards, ns.cards + 3) %}
+                        {% if meals[ns.cards] %}
+                            <div class="col-md-4 mb-4" style="padding-left: 0px; padding-right: 0px;">
+                                <div class="card">
+                                    <img class="card-img-top card-img-menu" src="{{ meals[ns.cards].image }}">
+                                    <div class="card-body card-body-menu">
+                                        <h5 class="card-title" style="font-weight: 550;">{{ meals[ns.cards].name }}</h5>
+                                        <hr style="margin-top: 8px; margin-bottom: 8px;">
+                                        <span><i class="fa fa-clock-o" style="padding-right: 6px; vertical-align: middle;"></i>{{ meals[ns.cards].duration }} minutes</span>
+                                        {% if meals[ns.cards].dietary == "Vegetarian" or meals[ns.cards].dietary == "Vegan" %}
+                                            <span class="pull-right">{{ meals[ns.cards].dietary }}</span>
+                                        {% else %}
+                                        {% endif %}
+                                        <div class="centered" style="padding-top:6px">
+                                            <span>Add to order </span>
+                                            <input type="checkbox" class="mealOption" name ="meal" value="{{ meals[ns.cards].id }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% set ns.cards = ns.cards + 1 %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% for i in range(3, meals | length, 3) %}
+                <div class="carousel-item">
+                    <div class="card-deck">
+                        {% for i in range(ns.cards, ns.cards + 3) %}
+                            {% if meals[ns.cards] %}
+                                <div class="col-md-4 mb-4" style="padding-left: 0px; padding-right: 0px;">
+                                    <div class="card">
+                                        <img class="card-img-top card-img-menu" src="{{ meals[ns.cards].image }}">
+                                        <div class="card-body card-body-menu">
+                                            <h5 class="card-title" style="font-weight: 550;">{{ meals[ns.cards].name }}</h5>
+                                            <hr style="margin-top: 8px; margin-bottom: 8px;">
+                                            <span><i class="fa fa-clock-o" style="padding-right: 6px"></i>{{ meals[ns.cards].duration }} minutes</span>
+                                            {% if meals[ns.cards].dietary == "Vegetarian" or meals[ns.cards].dietary == "Vegan" %}
+                                                <span class="pull-right">{{ meals[ns.cards].dietary }}</span>
+                                            {% else %}
+                                            {% endif %}
+                                            <div class="centered" style="padding-top:6px; vertical-align: middle;">
+                                                <span>Add to order </span>
+                                                <input type="checkbox" class="mealOption" name ="meal" value="{{ meals[ns.cards].id }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% set ns.cards = ns.cards + 1 %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="centered">
+            <a class="btn btn-outline-primary prev" href="#menuCarousel" role="button" data-slide="prev">
+                <span aria-hidden="true"></span>
+                <span class="fa fa-sm fa-chevron-left"></span>
+            </a>
+            <span id="pages"></span>
+            <a class="btn btn-outline-primary next" href="#menuCarousel" role="button" data-slide="next">
+                <span aria-hidden="true"></span>
+                <span class="fa fa-sm fa-chevron-right"></span>
+            </a>
+        </div>
+    </div>
+    </form>
+{% endblock %}

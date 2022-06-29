@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block script %}
+    <script src="{{url_for('static', filename='blog_history.js')}}"></script>
+{% endblock %}
+
+{% block title %}
+    Blog History
+{% endblock %}
+
+{% block main %}
+    <h3 class="centered">My Blog History</h3>
+    <hr>
+    <!-- Button control -->
+    <div class="centered">
+        <div class="btn-group btn-group-toggle" id="table-toggle" data-toggle="buttons">
+            <label class="btn btn-primary btn-lg active">
+                <input type="radio" name="options" id="showPosts" autocomplete="off" checked> Posts
+            </label>
+            <label class="btn btn-primary btn-lg">
+                <input type="radio" name="options" id="showComments" autocomplete="off"> Comments
+            </label>
+        </div>
+    </div>
+
+    <!-- Post history table -->
+    <table class="table table-hover" id="postHistory">
+        <thead class="thead-light">
+            <tr>
+                <th>Title</th>
+                <th>Comments</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in posts %}
+                <tr class="clickable-row" data-url="/blog/{{ post.id }}" style="cursor: pointer">
+                    <td>{{ post.title }}</td>
+                    <td>{{ post.total_comments }}</td>
+                    <td>{{ post.timestamp }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Comment history table -->
+    <table class="table table-hover" id="commentHistory">
+        <thead class="thead-light">
+            <tr>
+                <th>Post Title</th>
+                <th>Karma</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for comment in comments %}
+                <tr class="clickable-row" data-url="/blog/{{ comment.id }}" style="cursor: pointer">
+                    <td>{{ comment.title }}</td>
+                    <td>{{ comment.karma }}</td>
+                    <td>{{ comment.timestamp }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

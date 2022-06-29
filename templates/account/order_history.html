@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block script %}
+    <script src="{{url_for('static', filename='order_history.js')}}"></script>
+{% endblock %}
+
+{% block title %}
+    Order History
+{% endblock %}
+
+{% block main %}
+    <h3 class="centered">My Orders</h3>
+    <hr>
+    <!-- Button control -->
+    <div class="centered">
+        <div class="btn-group btn-group-toggle" id="table-toggle" data-toggle="buttons">
+            <label class="btn btn-primary btn-lg active">
+                <input type="radio" name="options" id="showShop" autocomplete="off" checked> Shop orders
+            </label>
+            <label class="btn btn-primary btn-lg">
+                <input type="radio" name="options" id="showFood" autocomplete="off"> Food orders
+            </label>
+        </div>
+    </div>
+
+    <!-- Shop orders table -->
+    <table class="table table-hover" id="shopOrders">
+        <thead class="thead-light">
+            <tr>
+                <th>Order Number</th>
+                <th>Number of items</th>
+                <th>Total Cost</th>
+                <th>Date Ordered</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+                <tr class="clickable-row" data-url="/order/{{ order.id }}" style="cursor: pointer">
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.total_items }}</td>
+                    <td>{{ order.total_cost | gbp }}</td>
+                    <td>{{ order.timestamp }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Food orders table -->
+    <table class="table table-hover" id="foodOrders">
+        <thead class="thead-light">
+            <tr>
+                <th>Order Number</th>
+                <th>Servings</th>
+                <th>Total Cost</th>
+                <th>Date Ordered</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for food_order in food_orders %}
+                <tr class="clickable-row" data-url="/food_order/{{ food_order.id }}" style="cursor: pointer">
+                    <td>{{ food_order.id }}</td>
+                    <td>{{ food_order.servings }}</td>
+                    <td>{{ food_order.total_cost | gbp }}</td>
+                    <td>{{ food_order.timestamp }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

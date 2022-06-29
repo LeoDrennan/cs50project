@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Order complete!
+{% endblock %}
+
+{% block main %}
+    <h3 class="centered">Order Number {{ order.id }}</h3>
+    <br>
+    <div class="row">
+        <div class="col-md-8">
+            <table class="container table table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Meal</th>
+                        <th></th>
+                        <th>Servings</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for meal in meals %}
+                    <tr>
+                        <td><img src="{{ meal.image }}" class="shopping-basket-image"></td>
+                        <td>{{ meal.name }}</td>
+                        <td>{{ preferences.people }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td class="tfoot-header">Total Cost</td>
+                        <td>{{ order.total_cost | gbp }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <div class="round-border centered" style="margin-bottom: 10px">
+                You have ordered <b>{{ preferences.meals }}</b> meals for <b>{{ preferences.people }}</b> people.
+            </div>
+            <div class="round-border">
+                <p style="margin-bottom: 8px"><b>Time of Order</b></p>
+                <p style="margin-bottom: 0px">{{ order.timestamp }}</p>
+                <p style="margin-bottom: 8px; margin-top: 16px;"><b>Delivery Address</b></p>
+                <p style="margin-bottom: 0px">{{ address.address }}</p>
+                <p style="margin-bottom: 0px">{{ address.city }}</p>
+                <p style="margin-bottom: 8px">{{ address.postcode }}</p>
+                <p style="margin-bottom: 8px; margin-top: 16px;"><b>Payment information</b></p>
+                <span>Card ending: {{ censored }}</span>
+                <span class="pull-right" style="padding-right: 30px">{{ payment.card_type }}</span>
+                <p style="margin-bottom: 8px; margin-top: 16px;"><b>Contact Number</b></p>
+                <p style="margin-bottom: 8px">{{ number }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

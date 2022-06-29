@@ -1,0 +1,163 @@
+{% extends "layout.html" %}
+
+{% block script %}
+    <script src="{{url_for('static', filename='blog_post.js')}}"></script>
+{% endblock %}
+
+{% block title %}
+    {{ post.title }}
+{% endblock %}
+
+{% block main %}
+    <!-- Post -->
+    <div>
+        <!-- Post title -->
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <div class="post-title" style="display: inline-block">
+                <h3>{{ post.title }}</h3>
+                <hr>
+            </div>
+        </div>
+        <!-- Post information (author, date, edit status) -->
+        <div class="row">
+            <div class="col-md-6" style="text-align: left">
+                <p style="margin-bottom: 8px">by {{ author }}</p>
+                <p class="text-muted" style="margin-bottom: 8px">Created on {{ post.timestamp }}</p>
+            </div>
+            <div class="col-md-6" style="text-align: right">
+                <div>
+                    {% if session.user_id == post.user_id %}
+                        <form action="/blog/{{ post.id }}" method="post" onsubmit="return confirm('Do you really want to delete this post?')">
+                            <input type="hidden" name="type" value="postDelete">
+                            <button class="btn btn-primary btn-sm pull-right" id="postDelete" type="submit" style="margin-left: 10px">Delete</button>
+                        </form>
+                        <a href="/blog/edit_post/{{ post.id }}"><button class="btn btn-primary btn-sm edit-post pull-right" value="{{ post.id }}" onclick="return confirm('Do you want to edit your comment?')">Edit</button></a>
+                    {% endif %}
+                </div>
+                <br style="margin-bottom: 8px">
+                <div class="text-muted">
+                    {% if post.edit != None %}
+                        Last edited on {{ post.edit }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- Post body of content -->
+        <hr class="post-hr">
+        <div class="post-content">{{ post.content }}</div>
+        <hr>
+    </div>
+    <!-- Create a comment -->
+    <div class="comment-create centered">
+        {% if not session.user_id %}
+            <p>You must be logged in to post comments.</p>
+            <p>Please log in or register for an account.</p>
+            <a href="/login/blog/{{ post.id }}"><button class="btn btn-primary">Log in</button></a>
+        {% elif verified == False %}
+            <p>You must have a verified account to post comments.</p>
+            <p>Please check your email address for a verification email or click below to send a new email.</p>
+            <a href="/verify_request"><button class="btn btn-primary">Click here</button></a>
+        {% else %}
+            <p>
+                <p>Click below to add a comment to this post.</p>
+                <a class="btn btn-primary" id="collapseDown" data-toggle="collapse" href="#commentCollapse" role="button">
+                    Add comment <i class="fa fa-chevron-circle-down" aria-hidden="true"></i>
+                </a>
+                <a class="btn btn-primary" id="collapseUp" data-toggle="collapse" href="#commentCollapse" role="button">
+                    Add comment <i class="fa fa-chevron-circle-up" aria-hidden="true"></i>
+                </a>
+            </p>
+            <div class="collapse" id="commentCollapse">
+                <div class="card card-body">
+                    <form action="/blog/{{ post.id }}" method="post">
+                        <div class="form-group">
+                            <input type="hidden" name="type" value="create">
+                            <textarea class="form-control" id="comment" name="comment" rows="3" placeholder="Write your comment here..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Post comment</button>
+                    </form>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <hr>
+    <h4 class="centered" style="margin-top: 10px">Comments</h4>
+    <!-- List of comments -->
+    <div class="comment-section">
+        {% if comments %}
+            {% for comment in comments %}
+                <div class="comment round-border" id="{{ comment.id }}">
+                    <!-- Comment Header -->
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5>{{ comment.username }}</h5>
+                            <p class="comment-info text-muted">{{ comment.timestamp }}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <!-- Comment Edit/Delete for Comment Author -->
+                            <div class="author-buttons" id="author-buttons-{{ comment.id }}">
+                                {% if session.user_id == comment.user_id %}
+                                    <form action="/blog/{{ post.id }}" method="post" onsubmit="return confirm('Really delete this comment?')">
+                                        <input type="hidden" name="type" value="delete">
+                                        <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                                        <button class="btn btn-primary btn-sm pull-right" id="commentDelete" type="submit" style="margin-left: 10px">Delete</button>
+                                    </form>
+                                    <button class="btn btn-primary btn-sm pull-right edit-comment" value="{{ comment.id }}" onclick="return confirm('Do you want to edit your comment?')">Edit</button>
+                                {% endif %}
+                            </div>
+                            <br style="margin-bottom: 8px">
+                            <div class="pull-right text-muted">
+                                {% if comment.edit != None %}
+                                    Last edited on {{ comment.edit }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="comment-hr">
+                    <!-- Comment body -->
+                    <p id="body-{{ comment.id }}">{{ comment.content }}</p>
+                    {% if session.user_id %}
+                        <!-- Comment Voting -->
+                        {% if comment.voteStatus == 0 %}
+                            <div class="voting-buttons" id="buttons-{{ comment.id }}">
+                                <span id ="upvote-button"><button class="btn btn-primary btn-sm vote-button" id="upvote" value="{{ comment.id }}">Upvote</button></span>
+                                <span id="karma">{{ comment.karma }}</span>
+                                <span id="downvote-button"><button class="btn btn-primary btn-sm vote-button" id="downvote" value="{{ comment.id }}">Downvote</button></span>
+                            </div>
+                        {% elif comment.voteStatus == 1 %}
+                            <div class="voting-buttons" id="buttons-{{ comment.id }}">
+                                <span id ="upvote-undo"><button class="btn btn-primary btn-sm vote-button" id="remove-upvote" value="{{ comment.id }}">Revert-U</button></span>
+                                <span id="karma">{{ comment.karma }}</span>
+                                <span id="downvote-button"><button class="btn btn-primary btn-sm vote-button" id="downvote" value="{{ comment.id }}">Downvote</button></span>
+                            </div>
+                        {% else %}
+                            <div class="voting-buttons" id="buttons-{{ comment.id }}">
+                                <span id ="upvote-button"><button class="btn btn-primary btn-sm vote-button" id="upvote" value="{{ comment.id }}">Upvote</button></span>
+                                <span id="karma">{{ comment.karma }}</span>
+                                <span id="downvote-undo"><button class="btn btn-primary btn-sm vote-button" id="remove-vote" value="{{ comment.id }}">Revert-D</button></span>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <div class="voting-buttons" id="buttons-{{ comment.id }}">
+                            <span id="upvote-button">
+                                <a href="/login/blog/{{ post.id }}" onclick="return confirm('You must be logged in to vote on comments. Log in now?')">
+                                    <button class="btn btn-primary btn-sm" id="upvote" value="{{ comment.id }}">Upvote</button>
+                                </a>
+                            </span>
+                            <span id="karma">{{ comment.karma }}</span>
+                            <span id="downvote-button">
+                                <a href="/login/blog/{{ post.id }}" onclick="return confirm('You must be logged in to vote on comments. Log in now?')">
+                                    <button class="btn btn-primary btn-sm" id="downvote" value="{{ comment.id }}">Downvote</button>
+                                </a>
+                            </span>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="centered round-border" style="width: 80%; margin: auto;">
+                There are no comments on this post.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

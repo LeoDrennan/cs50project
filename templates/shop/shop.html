@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Shop
+{% endblock %}
+
+{% block main %}
+    <h3 class="centered">Kitchenware & Accessories</h3>
+    <hr>
+    <div class="card-deck">
+        {% for product in products %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <a href="/shop/{{ product.id }}"><img class="card-img-top card-img-shop" src="{{ product.image }}"></a>
+                <div class="card-body">
+                    <h5 class="card-title product-title">{{ product.name }}</h5>
+                    <div>
+                        {% for i in range(5, 55, 10) %}
+                            {% if product.rounded_rating > i %}
+                                <span class="fa fa-star rating-star-shop"></span>
+                            {% elif product.rounded_rating == i %}
+                                <span class="fa fa-star-half-o rating-star-shop"></span>
+                            {% else %}
+                                <span class="fa fa-star-o rating-star-shop"></span>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <p class="card-text">{{ product.price | gbp }}</p>
+                    <div class="shop-button">
+                        <a href="/shop/{{ product.id }}" class="btn btn-primary btn-sm">Shop now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

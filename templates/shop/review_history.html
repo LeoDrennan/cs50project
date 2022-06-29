@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block script %}
+    <script src="{{url_for('static', filename='review_history.js')}}"></script>
+{% endblock %}
+
+{% block title %}
+    Review history
+{% endblock %}
+
+{% block main %}
+    <h3 class="centered">My Reviews</h3>
+    <hr>
+    <!-- Review history table -->
+    <table class="table table-hover" id="reviewHistory">
+        <thead class="thead-light">
+            <tr>
+                <th>Product</th>
+                <th>Rating</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for review in reviews %}
+                <tr class="clickable-row" data-url="/shop/{{ review.product_id }}#{{ review.id }}" style="cursor: pointer">
+                    <td>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img src="{{ review.image }}" class="shopping-basket-image" style="margin-right: 0.5rem">
+                            </div>
+                            <div class="col-md-8">
+                                <div><b>{{ review.name }}</b></div>
+                                <div class="text-muted">Product ID: {{ review.product_id }}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        {% for i in range( review.rating ) %}
+                            <span class="fa fa-star rating-star-shop"></span>
+                        {% endfor %}
+                        {% for i in range( 5 - review.rating ) %}
+                            <span class="fa fa-star-o rating-star-shop"></span>
+                        {% endfor %}
+                    </td>
+                    <td>{{ review.date }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

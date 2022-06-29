@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Re-enter log in
+{% endblock %}
+
+{% block main %}
+    <div class="round-border reauth-box centered">
+        <h3>Re-Enter Credentials</h3>
+        <hr>
+        <form action="/reauthenticate/{{ destination }}" method="post">
+            <div class="form-group mx-sm-3 mb-2">
+                <input autocomplete="off" autofocus class="form-control" name="email" placeholder="Email Address" type="email">
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <input class="form-control" name="password" placeholder="Password" type="password">
+            </div>
+            <button class="btn btn-primary" type="submit">Confirm</button>
+        </form>
+    </div>
+{% endblock %}

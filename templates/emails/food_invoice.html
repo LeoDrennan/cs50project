@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+
+    </head>
+
+    <body>
+
+    <main style="padding: 1.5rem">
+        <div style="width: 30%; margin: auto;">
+            <h2 style="text-align: center">Order Number {{ order.id }}</h2>
+            <br>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="padding-left: 0.75rem; padding-right: 0.75rem;">Meal</th>
+                        <th style="padding-left: 0.75rem; padding-right: 0.75rem;"></th>
+                        <th style="padding-left: 0.75rem; padding-right: 0.75rem;">Servings</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for meal in meals %}
+                    <tr>
+                        <td style="padding: 0.75rem"><img src="{{ meal.email_image }}" style="width: auto; height: auto; max-height: 150px; max-width: 150px;"></td>
+                        <td style="padding: 0.75rem">{{ meal.name }}</td>
+                        <td style="padding: 0.75rem">{{ preferences.people }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td style="padding: 0.75rem"></td>
+                        <td style="padding: 0.75rem">Total Cost</td>
+                        <td style="padding: 0.75rem">{{ order.total_cost | gbp }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+            <div style="margin-bottom: 10px; border-style: solid; border-color: #A8A8A8; border-radius: 20px; border-width: 2px; padding: 10px; text-align: center;">
+                You have ordered <b>{{ preferences.meals }}</b> meals for <b>{{ preferences.people }}</b> people.
+            </div>
+            <div style="border-style: solid; border-color: #A8A8A8; border-radius: 20px; border-width: 2px; padding: 10px;">
+                <p style="margin-bottom: 8px"><b>Time of Order</b></p>
+                <p style="margin-bottom: 0px">{{ order.timestamp }}</p>
+                <p style="margin-bottom: 8px; margin-top: 16px;"><b>Delivery Address</b></p>
+                <p style="margin-bottom: 0px">{{ address.address }}</p>
+                <p style="margin-bottom: 0px">{{ address.city }}</p>
+                <p style="margin-bottom: 8px">{{ address.postcode }}</p>
+                <p style="margin-bottom: 8px; margin-top: 16px;"><b>Payment information</b></p>
+                <span>Card ending: {{ censored }}</span>
+                <span style="padding-right: 30px; float: right;">{{ payment.card_type }}</span>
+                <p style="margin-bottom: 8px; margin-top: 16px;"><b>Contact Number</b></p>
+                <p style="margin-bottom: 8px">{{ number }}</p>
+            </div>
+        </div>
+    </main>
+
+    </body>
+
+</html>

@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Edit Post
+{% endblock %}
+
+{% block main %}
+    <h3 class="centered">Edit Post</h3>
+    <hr>
+    <form action="/blog/edit_post/{{ post.id }}" method="post">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ post.title }}" autocomplete="off">
+        </div>
+        <div class="form-group">
+            <label for="content">Post Body</label>
+            <textarea class="form-control" id="content" name="content" rows="3" placeholder="Post content">{{ post.content }}</textarea>
+        </div>
+        <div class="centered">
+            <span><button type="submit" class="btn btn-primary">Update Post</button></span>
+            <span><a href="/blog/{{ post.id }}"><button type="button" class="btn btn-primary">Cancel</button></a></span>
+        </div>
+    </form>
+{% endblock %}

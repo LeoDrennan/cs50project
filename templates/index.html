@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+
+        <!-- http://getbootstrap.com/docs/4.5/ -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+        <!-- https://favicon.io/emoji-favicons/fork-and-knife-with-plate -->
+        <link href="/static/favicon.ico" rel="icon">
+
+        <link href="/static/styles.css" rel="stylesheet">
+
+        <!-- Social media icon library-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <!-- http://getbootstrap.com/docs/4.5/ -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+
+        <title>Budget Eats: Home</title>
+
+    </head>
+
+    <body>
+
+    <div id="page-container">
+        <div id="content-wrap">
+        <!-- Bootstrap navbar -->
+            <nav class="navbar navbar-expand-md navbar-light bg-light border">
+                <!-- Navbar brand logo/title with link to index page-->
+                <a class="navbar-brand" href="/">Budget Eats</a>
+                <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbar" data-toggle="collapse" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbar">
+                    {% if session.user_id %}
+                        <ul class="navbar-nav mr-auto mt-2">
+                            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/quote">Menu</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/shop">Shop</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                        </ul>
+                        <ul class="navbar-nav ml-auto mt-2">
+                            <li class="nav-item"><a class="nav-link" href="/basket"><i class="fa fa-shopping-basket" aria-hidden="true"></i></a></li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Welcome, {{ session.name }}
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class ="dropdown-item" href="/account">My Account</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class ="dropdown-item" href="/logout">Log Out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    {% else %}
+                        <ul class="navbar-nav mr-auto mt-2">
+                            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/quote">Menu</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/shop">Shop</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                        </ul>
+                        <ul class="navbar-nav ml-auto mt-2">
+                            <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
+                        </ul>
+                    {% endif %}
+                </div>
+            </nav>
+
+            {% if get_flashed_messages() %}
+                <header>
+                    <div class="alert alert-primary alert-dismissable border text-center" style="margin-bottom: 0px !important" role="alert">
+                        {{ get_flashed_messages() | join(" ") | safe }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </header>
+            {% endif %}
+
+            <main>
+                <div id="home-banner">
+                    <div class="container centered p-4">
+                        <h2>Welcome to Budget Eats</h2>
+                        <p>Budget Eats is a place for all things food. We offer a prestige food delivery service direct to your door, as well as top of the line kitchen accessories.
+                            Feel free to browse all that we offer, or sign up to join our community with our free to use food blog. Enjoy your stay!
+                        </p>
+                    </div>
+                </div>
+                <div class="container p-4">
+                    <div class="home-carousel">
+                        <div id="homePageCarousel" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#homePageCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#homePageCarousel" data-slide-to="1"></li>
+                            <li data-target="#homePageCarousel" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                            <img class="d-block w-100" src="/static/images/Salad_Bowl.jpg" alt="First slide">
+                            <div class="carousel-caption d-none d-md-block">
+                                <div>Choose from a wide variety of nutritous meals.</div>
+                                <a href="/quote"><button class="btn btn-primary carousel-button">Our Meals</button></a>
+                            </div>
+                            </div>
+                            <div class="carousel-item">
+                            <img class="d-block w-100" src="https://stylecaster.com/wp-content/uploads/2020/09/best-kitchen-gadgets-under-50.jpg" alt="Second slide">
+                            <div class="carousel-caption d-none d-md-block">
+                                <div>Browse our selection of products.</div>
+                                <a href="/shop"><button class="btn btn-primary carousel-button">Shop</button></a>
+                            </div>
+                            </div>
+                            <div class="carousel-item">
+                            <img class="d-block w-100" src="https://cdn.hellofresh.com/us/cms/bags/img/2-person-v-1-desktop-pdp.jpg" alt="Third slide">
+                            <div class="carousel-caption d-none d-md-block">
+                                <div>Join our food loving community.</div>
+                                <a href="/blog"><button class="btn btn-primary carousel-button">Blog</button></a>
+                            </div>
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#homePageCarousel" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#homePageCarousel" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                        </div>
+                    </div>
+                </div>
+                <div id="how-it-works">
+                    <div class="container p-4">
+                        <h4 class="centered">How our food subscription works</h4>
+                        <div class="row" style="padding: 20px">
+                            <div class="col-md-6">
+                                <div id="how-to" class="round-border">
+                                    <ol>
+                                        <li>Select the number of people you are cooking for</li>
+                                        <li>Select number of meals per week</li>
+                                        <li>Add any dietary or allergy information</li>
+                                        <li>Select your meals from your customised menu</li>
+                                        <li>Recieve your meals</li>
+                                    </ol>
+                                </div>
+                                <div class="centered">
+                                    <div style="margin-top: 5px; margin-bottom: 0.75rem;">From as little as £3 per serving!</div>
+                                    <a href="/quote"><button class="btn btn-primary">Get Started</button></a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <img src="https://media.istockphoto.com/photos/man-checking-his-fresh-food-delivery-picture-id1221455039?k=20&m=1221455039&s=612x612&w=0&h=_fwcspxc-gIMYuisA-4R17AwgKgF9hFGjWzNN8aPA8g=" id="food-box">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="shop-showcase">
+                    <div class="container p-3">
+                        <h4 class="centered" style="margin-bottom: 15px;">Best Sellers</h4>
+                        <div class="card-deck">
+                            {% for product in products %}
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <a href="/shop/{{ product.id }}"><img class="card-img-top showcase-image" src="{{ product.image }}"></a>
+                                    <div class="card-body">
+                                        <h5 class="card-title product-title">{{ product.name }}</h5>
+                                        <div>
+                                            {% for i in range(5, 55, 10) %}
+                                                {% if product.rounded_rating > i %}
+                                                    <span class="fa fa-star rating-star-shop"></span>
+                                                {% elif product.rounded_rating == i %}
+                                                    <span class="fa fa-star-half-o rating-star-shop"></span>
+                                                {% else %}
+                                                    <span class="fa fa-star-o rating-star-shop"></span>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                        <p class="card-text">{{ product.price | gbp }}</p>
+                                        <div class="shop-button">
+                                            <a href="/shop/{{ product.id }}" class="btn btn-primary btn-sm">Shop now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <footer class="bg-light" id="footer">
+            <div class="footer-container">
+                <div id="links" class="footer-content">
+                    <div><a href="/support" class="footer-link">Support</a></div>
+                    <div><a href="/faq" class="footer-link">FAQ</a></div>
+                </div>
+                <div id="signature" class="footer-content">
+                    Leo Drennan
+                </div>
+                <div id="social-media" class="footer-content">
+                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="fa fa-facebook social-link"></a>
+                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="fa fa-twitter social-link"></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    </body>
+
+</html>

@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Review
+{% endblock %}
+
+{% block main %}
+    <h3 class="centered">Review Product: {{ name }}</h3>
+    <hr>
+    {% if status == 0 %}
+        <div class="round-border" style="width: 70%; margin: auto;">
+            <form action="/create_review/{{ product_id }}" method="post">
+                <p>Rating</p>
+                <div class="star-rating" style="margin-bottom: 0.75rem">
+                    <div class="star-rating-wrap">
+                        {% for i in range(5,0,-1) %}
+                            <input class="star-rating-input" id="star-rating-{{ i }}" type="radio" name="rating" value="{{ i }}" required>
+                            <label class="star-rating-icon fa fa-star-o fa-lg" for="star-rating-{{ i }}" title="{{ i }} out of 5 stars"></label>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="form-group" style="width: 50%">
+                    <label for="title">Title</label>
+                    <input class="form-control" type="text" name="title" id="title" placeholder="Add a review title..."  autocomplete="off" autofocus required>
+                </div>
+                <div class="form-group">
+                    <label for="review">Review body</label>
+                    <textarea class="form-control" id="review" name="review" rows="3" placeholder="Write the body of your review here..." required></textarea>
+                </div>
+                <div class="centered">
+                    <span><button class="btn btn-primary" type="submit">Submit</button></span>
+                    <span><a href="/shop/{{ product_id }}"><button type="button" class="btn btn-primary">Cancel</button></a></span>
+                </div>
+            </form>
+        </div>
+    {% elif status == 1 %}
+        <div class="round-border centered">
+            <h4>You must have purchased this item to review it.</h4>
+            <a href="/shop/{{ product_id }}"><button class="btn btn-primary">Take me there</button></a>
+        </div>
+    {% else %}
+        <div class="round-border centered">
+            <h4>You have already left a review for this item.</h4>
+            <a href="/shop/{{ product_id }}#{{ review_id }}"><button class="btn btn-primary">Show me</button></a>
+        </div>
+    {% endif %}
+{% endblock %}

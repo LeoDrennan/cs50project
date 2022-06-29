@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Checkout
+{% endblock %}
+
+{% block main %}
+    <h3 class="centered">Your Order</h3>
+    <br>
+    <!-- Order summary with table of items -->
+    <div class="invoice-table">
+        <table class="container table table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Product Info</th>
+                    <th>Sub-Total</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for content in contents %}
+                <tr>
+                    <td><img src="{{ content.image }}" class="shopping-basket-image"></td>
+                    <td>
+                        <b>{{ content.name }}</b>
+                        <br style="margin-bottom: 15px">
+                        {{ content.price | gbp }}
+                        <br style="margin-bottom: 25px">
+                        <span style="margin-right: 5px">Quantity:</span>
+                        {{ content.quantity }}
+                    </td>
+                    <td>{{ content.sub_total | gbp}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td class="tfoot-header">Total Cost</td>
+                    <td>{{ total_cost | gbp }}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <!-- Checkout form -->
+    <form action="/checkout" method="post">
+        <div class="checkout round-border" >
+            <!-- Delivery location -->
+            <h3 class="centered">Delivery Address</h3>
+            <hr>
+            <div class="destination">
+                <div class="form-group">
+                    <label for="phone_number">Mobile number</label>
+                    <input autocomplete="off" autofocus class="form-control" name="phone_number" placeholder="Contact Number" type="text" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address Line 1</label>
+                    <input autocomplete="off" autofocus class="form-control" name="address" placeholder="Address Line 1" type="text" required>
+                </div>
+                <div class="form-group">
+                    <label for="city">Town/City</label>
+                    <input autocomplete="off" autofocus class="form-control" name="city" placeholder="Town/City" type="text" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Postcode</label>
+                    <input autocomplete="off" autofocus class="form-control" name="postcode" placeholder="Postcode" type="text" required>
+                </div>
+                <div class="form-group">
+                    <label for="rememberDestination">Remember for next time</label>
+                    <input type="checkbox" name="rememberDestination">
+                </div>
+            </div>
+            <!-- Payment information -->
+            <h3 class="centered">Payment information</h3>
+            <hr>
+            <div class="payment">
+                <div class="form-group">
+                    <label for="address">Card Number</label>
+                    <input autocomplete="off" autofocus class="form-control" name="cardNumber" placeholder="Card Number" type="text" required>
+                </div>
+                <div class="form-group">
+                    <label for="rememberPayment">Remember for next time</label>
+                    <input type="checkbox" name="rememberPayment">
+                </div>
+            </div>
+            <div class="form-group centered">
+            <button class="btn btn-primary btn-lg" type="submit">Complete Purchase</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

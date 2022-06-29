@@ -1,0 +1,120 @@
+   <!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+
+        <!-- http://getbootstrap.com/docs/4.5/ -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+        <!-- https://favicon.io/emoji-favicons/fork-and-knife-with-plate -->
+        <link href="/static/favicon.ico" rel="icon">
+
+        <!-- Personal stylesheet -->
+        <link href="/static/styles.css" rel="stylesheet">
+
+        <!-- Social media icon library-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <!-- http://getbootstrap.com/docs/4.5/ -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+        <!-- https://datatables.net/ -->
+        <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+        <link href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+        {% block script %}{% endblock %}
+
+
+        <title>Budget Eats: {% block title %}{% endblock %}</title>
+
+    </head>
+
+    <body>
+
+    <div id="page-container">
+        <div id="content-wrap">
+        <!-- Bootstrap navbar -->
+            <nav class="navbar navbar-expand-md navbar-light bg-light border">
+                <!-- Navbar brand logo/title with link to index page-->
+                <a class="navbar-brand" href="/">Budget Eats</a>
+                <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbar" data-toggle="collapse" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbar">
+                    {% if session.user_id %}
+                        <ul class="navbar-nav mr-auto mt-2">
+                            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/quote">Menu</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/shop">Shop</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                        </ul>
+                        <ul class="navbar-nav ml-auto mt-2">
+                            <li class="nav-item"><a class="nav-link" href="/basket"><i class="fa fa-shopping-basket" aria-hidden="true"></i></a></li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Welcome, {{ session.name }}
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class ="dropdown-item" href="/account">My Account</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class ="dropdown-item" href="/logout">Log Out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    {% else %}
+                        <ul class="navbar-nav mr-auto mt-2">
+                            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/quote">Menu</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/shop">Shop</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
+                        </ul>
+                        <ul class="navbar-nav ml-auto mt-2">
+                            <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
+                        </ul>
+                    {% endif %}
+                </div>
+            </nav>
+
+            {% if get_flashed_messages() %}
+            <header>
+                <div class="alert alert-primary alert-dismissable border text-center" style="margin-bottom: 0px !important" role="alert">
+                    {{ get_flashed_messages() | join(" ") }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </header>
+            {% endif %}
+
+            <main class="container p-4">
+                {% block main %}{% endblock %}
+            </main>
+        </div>
+
+        <footer class="bg-light" id="footer">
+            <div class="footer-container">
+                <div id="links" class="footer-content">
+                    <div><a href="/support" class="footer-link">Support</a></div>
+                    <div><a href="/faq" class="footer-link">FAQ</a></div>
+                </div>
+                <div id="signature" class="footer-content">
+                    Leo Drennan
+                </div>
+                <div id="social-media" class="footer-content">
+                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="fa fa-facebook social-link"></a>
+                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="fa fa-twitter social-link"></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    </body>
+
+</html>

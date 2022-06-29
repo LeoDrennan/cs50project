@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block script %}
+    <script src="{{url_for('static', filename='blog_browse.js')}}"></script>
+{% endblock %}
+
+{% block title %}
+    Food Blog
+{% endblock %}
+
+{% block main %}
+    <h3 class="centered">Blog</h3>
+    <hr>
+    <div class="row">
+        <div class="col-md-8">
+            <div>Welcome to the Budget Eats blog! Feel free to post about any of our products, or share anything food related that interests you.</div>
+            <div>Blog rules:</div>
+            <ul>
+                <li>No harrassment</li>
+                <li>Keep on topic</li>
+            </ul>
+            <div>Failure to comply will result in account restrictions.</div>
+        </div>
+        {% if session.user_id %}
+            <div class="col-md-4 centered">
+                <div class="round-border" id="create-post">
+                    <p>Got something to share with our community?</p>
+                    <a href="/blog/create_post"><button class="btn btn-primary">Create Post</button></a>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-md-4 centered">
+                <div class="round-border" id="create-post">
+                    <p>You must be <a href="/login/blog">logged in</a> to create a blog post.</p>
+                    <a href="/blog/create_post"><button class="btn btn-primary" disabled>Create Post</button></a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <hr>
+    <h4 class="centered">Browse Posts</h4>
+    <table class="table table-hover" id="blogPosts">
+        <thead class="thead-light">
+            <tr>
+                <th>Title</th>
+                <th>User</th>
+                <th>Comments</th>
+                <th>Activity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in posts %}
+                <tr class="clickable-row" data-url="/blog/{{ post.id }}" style="cursor: pointer">
+                    <td>{{ post.title }}</td>
+                    <td>{{ post.first_name }} {{ post.last_name }}</td>
+                    <td>{{ post.total_comments }}</td>
+                    <td>{{ post.view_string }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

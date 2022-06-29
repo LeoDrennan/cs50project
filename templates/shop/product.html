@@ -1,0 +1,168 @@
+{% extends "layout.html" %}
+
+{% block script %}
+
+    <script>
+        $(document).ready(function() {
+            subTotal();
+        });
+
+        function subTotal() {
+            $("#product-quantity").on("change", function () {
+                var total = ($(this).val() * $("#price").val());
+                document.getElementById("sub-total").innerHTML = "Sub-Total: £" + total + ".00";
+            });
+        }
+    </script>
+
+{% endblock %}
+
+{% block title %}
+    {{ product.name }}
+{% endblock %}
+
+{% block main %}
+    <!-- Product information and purchase button-->
+    <h3 class="centered">{{ product.name }}</h1>
+    <hr>
+    <div class="row">
+        <div class="col-md-8"><img src="{{ product.image }}" class="product-page-image"></div>
+        <div class="col-md-4">
+            <div class="centered">Rating</div>
+            <div class="product-rating centered">
+                {% for i in range(5, 55, 10) %}
+                    {% if product.rounded_rating > i %}
+                        <span class="fa fa-star rating-star-product"></span>
+                    {% elif product.rounded_rating == i %}
+                        <span class="fa fa-star-half-o rating-star-product"></span>
+                    {% else %}
+                        <span class="fa fa-star-o rating-star-product"></span>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="round-border centered">
+                <div>Price per item: {{ product.price | gbp }}</div>
+                <br>
+                {% if product.stock == 0 %}
+                <div style="color: red">
+                    Out of stock
+                </div>
+                <div>
+                    <br>
+                    <button class="btn btn-primary" disabled>Add to Basket</button>
+                </div>
+                {% else %}
+                <form action="/shop/{{ product.id }}" method="post">
+                    <input name="type" type="hidden" value="add">
+                    <input name="id" type="hidden" value="{{ product.id }}">
+                    <input name="price" id="price" type="hidden" value="{{ product.price }}">
+                    <label for="product-quantity">Quantity:</label>
+                    <select name="quantity" id="product-quantity" type="number">
+                        {% for n in range(1, product.stock + 1) %}
+                            <option value="{{ n }}">{{ n }}</option>
+                        {% endfor %}
+                    </select>
+                    <div>
+                        <br>
+                        <p id="sub-total">Sub-Total: {{ product.price | gbp }}</p>
+                        <button class="btn btn-primary" type="submit">Add to Basket</button>
+                    </div>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <hr>
+    <!-- Item description -->
+    <div>
+        <h4 class="centered">Item Description</h4>
+        <p>{{ product.description }}</p>
+    </div>
+    <hr>
+    <!-- Rating summary and user review -->
+    <div class="row review-data">
+        <div class="col-md-4 round-border" style="padding-top: 0.5rem; padding-bottom: 1rem;">
+            <h4 class="centered" style="margin-bottom: 0.75rem">Average rating: {{ product.avg_rating }}</h4>
+            <div>
+                {% for star_rating in star_ratings %}
+                    <div class="review-bar">
+                        <span style="padding-right: 0.25rem">{{ star_rating.stars }}<span class="fa fa-star rating-star-shop" style="margin-left: 0.25rem"></span></span>
+                        <span class="bar-background">
+                            <span class="bar-fill" style="width: {{ star_rating.percentage }}%">
+                                <span style="padding-left: 0.5rem">{{ star_rating.percentage }}%</span>
+                            </span>
+                        </span>
+                        <span>{{ star_rating.total }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-8">
+            <h4 class="centered">Your review</h4>
+            {% if session.user_id %}
+                {% if user_review %}
+                    <div class="user-review round-border" id="{{ user_review.id }}">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h5><b>{{ user_review.title }}</b></h5>
+                                {% for i in range( user_review.rating ) %}
+                                    <span class="fa fa-star rating-star-shop"></span>
+                                {% endfor %}
+                                {% for i in range( 5 - user_review.rating ) %}
+                                    <span class="fa fa-star-o rating-star-shop"></span>
+                                {% endfor %}
+                                <p class="review-info text-muted"> reviewed by {{ user_review.first_name }} {{ user_review.last_name }} on {{ user_review.date }}</p>
+                            </div>
+                            <div class="col-md-4">
+                                <form action="/shop/{{ product.id }}" method="post" onsubmit="return confirm('Really delete your review?')">
+                                    <input type="hidden" name="type" value="delete">
+                                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                                    <input type="hidden" name="review_id" value="{{ user_review.id }}">
+                                    <button class="btn btn-primary btn-sm pull-right" type="submit" id="reviewDelete" style="margin-left: 10px">Delete</button>
+                                </form>
+                                <a href="/edit_review/{{ user_review.id }}"><button class="btn btn-primary btn-sm pull-right" onclick="return confirm('Do you want to edit your review?')">Edit</button></a>
+                            </div>
+                        </div>
+                        <hr class="review-hr">
+                        <p>{{ user_review.content }}</p>
+                    </div>
+                {% else %}
+                    <div class="centered round-border">
+                        <p>You have not yet reviewed this product.</p>
+                        <a href="/create_review/{{ product.id }}"><button class="btn btn-primary">Create review</button></a>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="centered round-border">
+                    <p>You must be logged in to review a product.</p>
+                    <a href="/login/shop/{{ product.id }}"><button class="btn btn-primary">Login</button></a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <!-- All customer reviews -->
+    <div>
+        <h4 class="centered">Customer Reviews</h4>
+        <hr>
+        {% if reviews %}
+            {% for review in reviews %}
+                <div class="review round-border" id="{{ review.id }}">
+                    <h5 class="review-title"><b>{{ review.title }}</b></h5>
+                    {% for i in range( review.rating ) %}
+                        <span class="fa fa-star rating-star-shop"></span>
+                    {% endfor %}
+                    {% for i in range( 5 - review.rating ) %}
+                        <span class="fa fa-star-o rating-star-shop"></span>
+                    {% endfor %}
+                    <p class="review-info">reviewed by {{ review.first_name }} {{ review.last_name }} on {{ review.date }}</p>
+                    <hr class="review-hr">
+                    <p>{{ review.content }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+        <div class="no-reviews centered round-border">
+            <p>This product is yet to be reviewed.</p>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

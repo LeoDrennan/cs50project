@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block script %}
+    <script>
+        $(document).ready(function() {
+            $("#search").keyup(function() {
+                // https://learningjquery.com/2012/11/make-jquery-contains-selector-case-insensitive
+                jQuery.expr[':'].icontains = function(a, i, m) {
+                    return jQuery(a).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+                };
+                $(".recipe-card").show();
+                var filter = $(this).val();
+                $(".card-deck").find(".card-title:not(:icontains(" + filter + "))").closest(".recipe-card").hide();
+            })
+        });
+    </script>
+{% endblock %}
+
+{% block title %}
+    Recipes
+{% endblock %}
+
+{% block main %}
+    <h3 class="centered">My Recipes</h3>
+    <hr>
+    <div class="centered" id="recipe-search">
+        <span>Find a recipe: </span>
+        <input class="form-control" type="search" placeholder="Search your recipes..." name="search" id="search">
+    </div>
+    <hr>
+    <div class="card-deck">
+        {% for meal in meals %}
+            <div class="col-md-4 mb-4 recipe-card" style="padding-left: 0px; padding-right: 0px;">
+                <div class="card">
+                    <img class="card-img-top card-img-menu" src="{{ meal.image }}">
+                    <div class="card-body card-body-menu">
+                        <h5 class="card-title">{{ meal.name }}</h5>
+                        <hr style="margin-top: 8px; margin-bottom: 8px;">
+                        <span><i class="fa fa-clock-o" style="padding-right: 6px; vertical-align: middle;"></i>{{ meal.duration }} minutes</span>
+                        <a class="stretched-link" href="/my_recipes/{{ meal.page_reference }}"></a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

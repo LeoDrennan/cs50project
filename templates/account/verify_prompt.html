@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Email Verification
+{% endblock %}
+
+{% block main %}
+    <div class="round-border reauth-box centered">
+        <h3>Request Token</h3>
+        <hr>
+        {% if session.verified == True %}
+            <p>Your account is already verified and you have access to all facilities.</p>
+            <a href="/"><button class="btn btn-primary">Home Page</button></a>
+        {% else %}
+            <p>Please check your inbox for a verification email. If you require another, click the link below.</p>
+            <form action="/verify_request" method="post">
+                <button class="btn btn-primary" type="submit">Request Email</button>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

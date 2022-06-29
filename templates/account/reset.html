@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Password reset
+{% endblock %}
+
+{% block main %}
+    <form action="/reset/{{ token }}" method="post">
+        <div class="form-group">
+            <input class="form-control" name="new_pass" placeholder="New password" type="password">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="new_pass_confirm" placeholder="Retype new password" type="password">
+        </div>
+        <button class="btn btn-primary" type="submit">Change Password</button>
+    </form>
+{% endblock %}

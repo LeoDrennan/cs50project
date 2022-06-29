@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Email change
+{% endblock %}
+
+{% block main %}
+    <div class="change-box round-border">
+        <h3 class="centered">Email Change</h3>
+        <hr>
+        <form action="/email_change" method="post">
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="email">New Email Address</label>
+                <input autocomplete="off" autofocus class="form-control" name="email" placeholder="example@gmail.com" type="email" required>
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="email_confirm">Re-Enter New Email Address</label>
+                <input autocomplete="off" autofocus class="form-control" name="email_confirm" placeholder="example@gmail.com" type="email" required>
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="password">Password</label>
+                <input autocomplete="off" autofocus class="form-control" name="password" placeholder="Password" type="password" required>
+            </div>
+            <div class="form-group mx-sm-3 mb-2 mt-4 centered">
+                <button class="btn btn-primary" type="submit">Change Email</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
