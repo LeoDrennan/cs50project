@@ -1,0 +1,502 @@
+.round-border {
+  border-style: solid;
+  border-color: #A8A8A8;
+  border-radius: 20px;
+  border-width: 2px;
+  padding: 10px;
+}
+
+#home-banner {
+  background-color: #dadada;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 15vw;
+  padding: 2px;
+}
+
+.product-image {
+  width: auto;
+  height: auto;
+  max-height: 250px;
+  max-width: 250px;
+}
+
+.showcase-image {
+  width: auto;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  max-height: 150px;
+  max-width: 150px;
+}
+
+.product-page-image {
+  width: auto;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  max-height: 300px;
+  max-width: 300px;
+}
+
+.introduction {
+  width: 80%;
+  padding: 10px;
+  margin: auto;
+  margin-top: 2px;
+}
+
+.basket-image {
+  width: auto;
+  height: auto;
+  max-width: 25px;
+  max-height: 25px;
+}
+
+.checkout {
+  margin: auto;
+  width: 50%;
+  padding: 20px;
+  padding-top: 25px;
+  padding-bottom: 9px;
+}
+.centered {
+  text-align: center !important;
+}
+
+.login-box, .change-box, .reset-box, .create-box, .reauth-box {
+  margin: auto;
+  width: 40%;
+  padding: 10px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+.home-carousel {
+  width: 80%;
+  margin: auto;
+}
+
+#how-it-works {
+  background-color: #f2f0f0;
+}
+
+.carousel-caption {
+  color: black;
+  background-color: white;
+  margin: auto;
+  width: auto;
+  opacity: 0.9;
+  border-radius: 20px;
+  padding: 10px;
+  width: 50%;
+}
+
+.carousel-indicators li {
+  background-color: grey;
+}
+
+.carousel-button {
+  margin: 7px;
+}
+
+.shop-showcase {
+  margin: auto !important;
+}
+
+.register-box {
+  margin: auto;
+  width: 50%;
+  padding: 20px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+.quote-sliders {
+  width: 60%;
+  margin: auto;
+}
+
+.quote-box {
+  width: 40%;
+  margin: auto;
+  padding-bottom: 15px;
+}
+
+.navbar-brand {
+  font-size: 25px;
+}
+
+.shop-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-body {
+  padding: 0.75rem !important;
+}
+
+.card-img-shop {
+  padding: 15px !important;
+}
+
+#food-box {
+  max-height: 400px;
+  max-width: 400px;
+  display: block;
+  margin: auto;
+}
+
+#how-to {
+  width: 85%;
+  margin: auto;
+  padding-top: 26px;
+  padding-right: 20px;
+  margin-bottom: 0.75rem;
+}
+
+input.mealOption {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+#create-post {
+  padding: 1rem;
+}
+
+.meal-picture {
+  max-width: 600px;
+  max-height: 300px;
+}
+
+/* Sticky footer */
+/* https://www.freecodecamp.org/news/how-to-keep-your-footer-where-it-belongs-59c6aa05c59c/ */
+
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+#content-wrap {
+  padding-bottom: 50px;    /* Footer height */
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50px;            /* Footer height */
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+#links {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.footer-link, .footer-link:link {
+  text-decoration: none;
+  padding-right: 15px;
+  color: rgba(0,0,0,.5)
+}
+
+.footer-link:hover {
+  color: black;
+  opacity: 0.7;
+}
+
+#links, #social-media {
+  flex-grow: 1;
+  flex-basis: 0;
+}
+
+#social-media {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.product-title {
+  margin-bottom: 0.25rem !important;
+}
+
+.product-rating {
+  margin-bottom: 0.5rem;
+}
+
+#basket-checkout {
+  padding: 10px;
+}
+
+#empty-basket {
+  padding: 10px;
+}
+
+#output {
+  padding-bottom: 0.25rem;
+}
+
+.shopping-basket-image {
+  width: auto;
+  height: auto;
+  max-height: 150px;
+  max-width: 150px;
+}
+
+.invoice-table {
+  width: 70%;
+  margin: auto;
+}
+
+.tfoot-header
+{
+  font-weight: 700 !important;
+  border: 0;
+}
+
+.card-img-menu {
+ padding: 0px;
+ height: 170px;
+ width: 342px;
+ margin: auto;
+}
+
+.card-body-menu {
+  padding: 20px;
+}
+
+.accountCard {
+  padding-top: 1rem;
+  border-radius: 20px;
+}
+
+.accountCard:hover {
+  background-color: #EDEDED;
+}
+
+.vert-center {
+  position: relative;
+  top: 30%;
+}
+
+#reviewName {
+  vertical-align: top;
+}
+
+#recipe-search {
+  width: 40%;
+  margin: auto;
+  margin-bottom: 1rem;
+}
+
+/* Review summary box */
+.review-bar {
+  margin-top: 0.5rem;
+  padding-left: 1.5rem;
+}
+
+.bar-background {
+  background-color: #ccc;
+  display: inline-flex;
+  width: 15rem;
+  height: 2rem;
+  border-radius: 5px;
+  align-items: center;
+}
+
+.bar-fill {
+  background-color: orange;
+  display: inline-flex;
+  height: 2rem;
+  border-radius: 5px;
+  align-items: center;
+}
+
+/* Review box formatting */
+.review, .comment {
+  margin-bottom: 0.5rem;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0.5rem;
+}
+
+.review-title {
+  margin-bottom: 4px;
+}
+
+.review-data {
+  margin-bottom: 0.75rem;
+}
+
+.review-hr, .comment-hr, .post-hr {
+  margin-top: 0px;
+  margin-bottom: 16px;
+}
+
+.review-info, .comment-info {
+  margin-bottom: 8px;
+}
+
+.no-reviews {
+  height: 100px;
+  line-height: 75px;
+  width: 80%;
+  margin: auto;
+}
+
+#pages {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+
+.btn {
+  box-shadow: none !important;
+}
+
+/* Slider bars */
+/* https://www.w3schools.com/howto/howto_js_rangeslider.asp */
+
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+}
+
+  /* The slider itself */
+  .slider {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    width: 100%; /* Full-width */
+    height: 30px; /* Specified height */
+    background: #d3d3d3; /* Grey background */
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+  }
+
+  /* Mouse-over effects */
+  .slider:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+  }
+
+  /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 75px; /* Set a specific slider handle width */
+    height: 30px; /* Slider handle height */
+    background: #007bff; /* Blue background */
+    cursor: pointer; /* Cursor on hover */
+  }
+
+  .slider::-moz-range-thumb {
+    width: 75px; /* Set a specific slider handle width */
+    height: 30px; /* Slider handle height */
+    background: #007bff; /* Blue background */
+    cursor: pointer; /* Cursor on hover */
+  }
+
+
+/* https://www.w3schools.com/howto/howto_css_social_media_buttons.asp */
+/* Font awesome social media buttons in footer */
+
+.social-link {
+  text-align: center;
+  text-decoration: none;
+  width: 40px;
+  height: 40px;
+  margin: 5px 2px;
+  border-radius: 40%;
+  box-sizing: content-box;
+}
+
+/* Add a hover effect if you want */
+.social-link:hover {
+  opacity: 0.7;
+  text-decoration: none;
+}
+
+.fa::before {
+  box-sizing: content-box;
+  position: relative;
+  top: 30%;
+}
+
+/* Set a specific color for each brand */
+
+/* Facebook */
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+/* Twitter */
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+/* https://www.w3schools.com/howto/howto_css_user_rating.asp */
+/* Font awesome star review */
+
+.rating-star-product {
+  font-size: 30px !important;
+}
+
+.rating-star-shop {
+  font-size: 16px !important;
+}
+
+.fa-star, .fa-star-o, .fa-star-half-o {
+  color: orange;
+}
+
+/* Star rating with font awesome */
+/* Adapated from https://codepen.io/BlackShabat/pen/pJZooM */
+
+.star-rating{
+	font-size: 0;
+}
+.star-rating-wrap{
+	display: inline-block;
+	font-size: 1rem;
+}
+.star-rating-wrap:after{
+	content: "";
+	display: table;
+	clear: both;
+}
+.star-rating-icon {
+	float: right;
+	padding-left: 2px;
+	cursor: pointer;
+  font-size: 30px !important;
+}
+.star-rating-icon:last-child{
+	padding-left: 0;
+}
+.star-rating-input{
+	display: none;
+}
+.star-rating-icon:hover:before,
+.star-rating-icon:hover ~ .star-rating-icon:before,
+.star-rating-input:checked ~ .star-rating-icon:before
+{
+	content: "\f005";
+  color: #FFA500;
+}
