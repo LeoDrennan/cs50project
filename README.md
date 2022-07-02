@@ -206,3 +206,4 @@ The following features have been considered but deemed to be outside of the scop
    - Option to use new info/use old info
    - Add my saved payments/destinations to account dashboard
 4. Add visualisations of the database structure to readme
+5. Password strength checker utilising regex
